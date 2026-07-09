@@ -51,3 +51,23 @@ export async function getProducts() {
 
   return response.json();
 }
+
+export async function getProductById(id) {
+  const response = await fetch(`${BASE_URL}/products/${id}`, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+      "User-Agent": "Mozilla/5.0",
+    },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch product");
+  }
+
+  return response.json();
+}
